@@ -44,7 +44,9 @@ type UserUpdateRequest struct {
 // GetUsers godoc
 // @Summary Retrieves users based on query
 // @Description Get Users
+// @Accept  json
 // @Produce json
+// @Param Authorization header string true "Bearer"
 // @Success 200 {array} Users
 // @Router /api/v1/users [get]
 func handleGetUsers(repository Repository) func(c echo.Context) error {
@@ -61,6 +63,13 @@ func handleGetUsers(repository Repository) func(c echo.Context) error {
 	}
 }
 
+// @Summary Get user
+// @Description Get User
+// @Accept  json
+// @Produce  json
+// @Param Authorization header string true "Bearer"
+// @Success 200 {object} User
+// @Router /api/v1/users/me [get]
 func handleGetUserByID(repository Repository) func(c echo.Context) error {
 	return func(c echo.Context) error {
 		code := http.StatusOK
@@ -76,6 +85,16 @@ func handleGetUserByID(repository Repository) func(c echo.Context) error {
 	}
 }
 
+// @Summary Create User
+// @Description Create User
+// @Accept  json
+// @Produce  json
+// @Param email formData string true "Email"
+// @Param password formData string true "Password"
+// @Param name formData string true "Name"
+// @Param age formData number true "Age"
+// @Success 200 {object} User
+// @Router /api/v1/users [post]
 func handleCreateNewUser(repository Repository) func(c echo.Context) error {
 	return func(c echo.Context) error {
 		code := http.StatusOK
@@ -104,6 +123,16 @@ func handleCreateNewUser(repository Repository) func(c echo.Context) error {
 	}
 }
 
+// @Summary Update User
+// @Description Update User
+// @Accept  json
+// @Produce  json
+// @Param Authorization header string true "Bearer"
+// @Param password formData string true "Password"
+// @Param name formData string true "Name"
+// @Param age formData number true "Age"
+// @Success 200 {object} User
+// @Router /api/v1/users/me [put]
 func handleUpdateUser(repository Repository) func(c echo.Context) error {
 	return func(c echo.Context) error {
 		code := http.StatusOK

@@ -18,6 +18,14 @@ func NewAuthAPI(app *echo.Group, resource *db.Resource) {
 	app.POST("/login", handleLogin(repository))
 }
 
+// @Summary Login
+// @Description Login
+// @Accept  json
+// @Produce  json
+// @Param email formData string true "Email"
+// @Param password formData string true "Password"
+// @Success 200 {string} Token "token"
+// @Router /api/v1/login [post]
 func handleLogin(repository u.Repository) func(c echo.Context) error {
 	return func(c echo.Context) error {
 		email := c.FormValue("email")

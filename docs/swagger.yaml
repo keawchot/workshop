@@ -9,24 +9,45 @@ definitions:
         type: string
       name:
         type: string
-      password:
-        type: string
     type: object
 info:
   contact: {}
 paths:
+  /api/v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: Email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            type: string
+      summary: Login
   /api/v1/users:
     get:
+      consumes:
+      - application/json
       description: Get Users
       parameters:
-      - description: Name
-        in: query
-        name: name
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
         type: string
-      - description: Age
-        in: query
-        name: age
-        type: integer
       produces:
       - application/json
       responses:
@@ -39,4 +60,89 @@ paths:
               type: array
             type: array
       summary: Retrieves users based on query
+    post:
+      consumes:
+      - application/json
+      description: Create User
+      parameters:
+      - description: Email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Age
+        in: formData
+        name: age
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Create User
+  /api/v1/users/me:
+    get:
+      consumes:
+      - application/json
+      description: Get User
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Get user
+    put:
+      consumes:
+      - application/json
+      description: Update User
+      parameters:
+      - description: Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Age
+        in: formData
+        name: age
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: Update User
 swagger: "2.0"
